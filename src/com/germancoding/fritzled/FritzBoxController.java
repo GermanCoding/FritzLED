@@ -58,6 +58,9 @@ public class FritzBoxController {
 		this.username = username;
 		this.password = password;
 		this.sid = getNewSessionID();
+		if(this.sid.equalsIgnoreCase("0000000000000000")) {
+			System.out.println("Login failed. Username/password may be incorrect.");
+		}
 	}
 
 	public String getNewSessionID() {
@@ -121,7 +124,7 @@ public class FritzBoxController {
 		params.add(new BasicNameValuePair("oldpage", "/system/led_display.lua"));
 		try {
 			post.setEntity(new UrlEncodedFormEntity(params));
-			client.execute(post).close();
+			sendPost(post).close();
 			// System.out.println("POST send with sid " + sid);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -129,6 +132,14 @@ public class FritzBoxController {
 			e.printStackTrace();
 		}
 
+	}
+
+	public CloseableHttpResponse sendPost(HttpPost post) throws ClientProtocolException, IOException {
+		return client.execute(post);
+	}
+
+	public String getSID() {
+		return sid;
 	}
 
 	private String getResponse(String challenge, String password) {
@@ -162,6 +173,10 @@ public class FritzBoxController {
 
 	public String getDataAddress() {
 		return scheme + domain + "/data.lua";
+	}
+
+	public String getFirmwareCfgAddress() {
+		return scheme + domain + "/cgi-bin/firmwarecfg";
 	}
 
 }
