@@ -122,6 +122,7 @@ public class FritzBoxController {
 		params.add(new BasicNameValuePair("apply", ""));
 		params.add(new BasicNameValuePair("led_display", on ? "0" : "2"));
 		params.add(new BasicNameValuePair("oldpage", "/system/led_display.lua"));
+		params.add(new BasicNameValuePair("ledDisplay", on ? "0" : "2"));
 		try {
 			post.setEntity(new UrlEncodedFormEntity(params));
 			sendPost(post).close();
