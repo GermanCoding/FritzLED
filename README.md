@@ -22,4 +22,5 @@ If you do not use Maven:
 FritzLED requires [Apache HttpClients](https://hc.apache.org/httpcomponents-client-ga/index.html) in a recent version and Java 7 or higher to compile.
 
 # Download
-A precompiled version of this program is currently not available, but I'm working on it.
+You can download an up to date pre-compiled version of this program here (Compiled with Java 8):
+https://build.germancoding.com/job/FritzLED/lastSuccessfulBuild/artifact/target/FritzLED-0.0.1-SNAPSHOT.jar
