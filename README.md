@@ -8,8 +8,8 @@ A small program to turn the LEDs of a Fritz!Box, FRITZ!WLAN or FRITZ!Powerline p
 
 [username] is optional, older Fritz!OS default is to only use a password.
 
-
-<mark>On newer Fritz!OS versions, usernames are mandatory. Even the "password only" option now uses a (hidden) user. If you're running Fritz!OS 7.25 or higher, login into your Fritz!Box and check System -> Fritz!Box users. This will show the username ("fritzXXXX", where X are digits) you need for login.</mark>
+**WARNING:**
+On newer Fritz!OS versions, usernames are mandatory. Even the "password only" option now uses a (hidden) user. If you're running Fritz!OS 7.25 or higher, login into your Fritz!Box and check System -> Fritz!Box users. This will show the username ("fritzXXXX", where X are digits) you need for login.
 
 If the web interface doesn't have a password set, any <password> given here will be valid.
 
