@@ -6,7 +6,10 @@ A small program to turn the LEDs of a Fritz!Box, FRITZ!WLAN or FRITZ!Powerline p
 # Usage
 `java -jar <jarfile> <on/off> <domain> [username] <password>`
 
-[username] is optional, the default configuration only uses a password.
+[username] is optional, older Fritz!OS default is to only use a password.
+
+
+<mark>On newer Fritz!OS versions, usernames are mandatory. Even the "password only" option now uses a (hidden) user. If you're running Fritz!OS 7.25 or higher, login into your Fritz!Box and check System -> Fritz!Box users. This will show the username ("fritzXXXX", where X are digits) you need for login.</mark>
 
 If the web interface doesn't have a password set, any <password> given here will be valid.
 
@@ -19,7 +22,7 @@ This program uses functionality available in Fritz!OS web interface. The program
 There's a Maven file (pom.xml) included, which should automatically manage dependencies. 
 
 If you do not use Maven:
-FritzLED requires [Apache HttpClients](https://hc.apache.org/httpcomponents-client-ga/index.html) in a recent version and Java 7 or higher to compile.
+FritzLED requires [Apache HttpClients](https://hc.apache.org/httpcomponents-client-ga/index.html), JSON (json.org) and Java 7 or higher to compile.
 
 # Download
 You can download an up to date pre-compiled version of this program here (Compiled with Java 8):

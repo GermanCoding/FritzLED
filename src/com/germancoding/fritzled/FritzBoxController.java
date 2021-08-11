@@ -22,6 +22,9 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.w3c.dom.Document;
 
 public class FritzBoxController {
@@ -58,7 +61,7 @@ public class FritzBoxController {
 		this.username = username;
 		this.password = password;
 		this.sid = getNewSessionID();
-		if(this.sid.equalsIgnoreCase("0000000000000000")) {
+		if (this.sid.equalsIgnoreCase("0000000000000000")) {
 			System.out.println("Login failed. Username/password may be incorrect.");
 		}
 	}
@@ -117,12 +120,51 @@ public class FritzBoxController {
 
 		HttpPost post = new HttpPost(url);
 
+		// We first need to check if the device is dimmable and/or has dynamic light sensors and if so, get the current values
+		int dimValue = 2;
+		int envLight = 0;
+		ArrayList<NameValuePair> dimParams = new ArrayList<NameValuePair>();
+		dimParams.add(new BasicNameValuePair("sid", sid));
+		dimParams.add(new BasicNameValuePair("page", "led"));
+		CloseableHttpResponse response = null;
+		try {
+			post.setEntity(new UrlEncodedFormEntity(dimParams));
+			response = sendPost(post);
+			JSONTokener tokener = new JSONTokener(response.getEntity().getContent());
+			JSONObject responseObject = new JSONObject(tokener);
+			JSONObject parent = responseObject.getJSONObject("data").getJSONObject("ledSettings");
+			try {
+				dimValue = parent.getInt("dimValue");
+			} catch (JSONException e) {
+				// Might be unsupported
+			}
+			try {
+				envLight = parent.getInt("envLight");
+			} catch (JSONException e) {
+				// Might be unsupported
+			}
+		} catch (Exception e) {
+			// Ignore, this may be an older Fritz!OS device
+			;
+		} finally {
+			if (response != null) {
+				try {
+					response.close();
+				} catch (IOException e) {
+					;
+				}
+			}
+		}
+
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("sid", sid));
 		params.add(new BasicNameValuePair("apply", ""));
 		params.add(new BasicNameValuePair("led_display", on ? "0" : "2"));
 		params.add(new BasicNameValuePair("oldpage", "/system/led_display.lua"));
 		params.add(new BasicNameValuePair("ledDisplay", on ? "0" : "2"));
+		params.add(new BasicNameValuePair("dimValue", Integer.toString(dimValue)));
+		params.add(new BasicNameValuePair("envLight", Integer.toString(envLight)));
+		params.add(new BasicNameValuePair("page", "led"));
 		try {
 			post.setEntity(new UrlEncodedFormEntity(params));
 			sendPost(post).close();
