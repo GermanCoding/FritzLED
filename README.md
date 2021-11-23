@@ -27,3 +27,7 @@ FritzLED requires [Apache HttpClients](https://hc.apache.org/httpcomponents-clie
 # Download
 You can download an up to date pre-compiled version of this program here (Compiled with Java 11):
 https://build.germancoding.com/job/FritzLED/lastSuccessfulBuild/artifact/target/FritzLED-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+  
+# Additional notes
+
+Neither this program nor the author(s) are affiliated with AVM. The name of this program may change in the future.
