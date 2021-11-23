@@ -25,5 +25,5 @@ If you do not use Maven:
 FritzLED requires [Apache HttpClients](https://hc.apache.org/httpcomponents-client-ga/index.html), JSON (json.org) and Java 7 or higher to compile.
 
 # Download
-You can download an up to date pre-compiled version of this program here (Compiled with Java 8):
+You can download an up to date pre-compiled version of this program here (Compiled with Java 11):
 https://build.germancoding.com/job/FritzLED/lastSuccessfulBuild/artifact/target/FritzLED-0.0.1-SNAPSHOT-jar-with-dependencies.jar
